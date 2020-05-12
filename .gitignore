@@ -1,0 +1,4 @@
+run.sh
+build
+compile_commands.json
+.clangd
