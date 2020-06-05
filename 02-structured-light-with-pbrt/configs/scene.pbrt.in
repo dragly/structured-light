@@ -1,0 +1,63 @@
+Film "image" "string filename"
+  #["scene_{{ pattern }}.exr"]
+  ["scenes/scene_{{ pattern }}.png"]
+  "integer xresolution" [600] "integer yresolution" [600]
+Sampler "halton" "integer pixelsamples" [512]
+Integrator "path" "integer maxdepth" [6]
+LookAt -2.0 3.0 4.5  0 0 0   0 1 0
+Camera "perspective" "float fov" [50]
+#Camera "realistic" "string lensfile" "lenses/dgauss.50mm.dat" "float aperturediameter" 8.0 "float focusdistance" 4.5 "bool simpleweighting" "true"
+WorldBegin
+  AttributeBegin
+    AreaLightSource "diffuse" "rgb L" [ 2 2 2 ]
+    Translate -3 4 2
+    Shape "sphere" "float radius" [1.0]
+  AttributeEnd
+
+  AttributeBegin
+    AreaLightSource "diffuse" "rgb L" [ 2 2 2 ]
+    Translate 3 4 -2
+    Shape "sphere" "float radius" [1.0]
+  AttributeEnd
+
+  AttributeBegin
+    CoordSysTransform "camera"
+    Translate -0.2 0.0 0
+    Rotate 10 0 1 0
+    LightSource "projection" "color I" [30 30 30] "float fov" [50] "string mapname" "../patterns/pattern_{{ pattern }}.png"
+  AttributeEnd
+
+  AttributeBegin
+    #Material "metal"
+    #Material "uber" "color Kd" [0.8 0.7 0.6] "color Ks" [0.05 0.05 .05]
+    Material "uber" "color Kd" [0.8 0.7 0.6] "color Ks" [0.0 0.0 0.0]
+    Translate 0 -1 0
+    Shape "trianglemesh" "integer indices" [ 0 1 2 2 0 3 ]
+      "point P" [-10 0 -10   10 0 -10   10 0 10   -10 0 10 ]
+  AttributeEnd
+
+  AttributeBegin
+    Translate 0 0 -0.4
+    Material "uber" "color Kd" [1 1 1] "color Ks" [0.0 0.0 0.0]
+    #Material "uber" "color Kd" [1 1 1] "color Ks" [0.05 0.05 .05]
+    Include "../geometry/suzanne.pbrt"
+  AttributeEnd
+
+  AttributeBegin
+    Translate 1.0 0 1.0
+    Material "uber" "color Kd" [0.5 0.8 1] "color Ks" [0.0 0.0 0.0]
+    #Material "uber" "color Kd" [0.5 0.8 1] "color Ks" [0.1 0.1 0.1]
+    #Material "uber" "color Kd" [0.5 0.8 1] "color Ks" [0.4 0.2 0.8]
+    #Material "metal" "color k" [0.4 0.6 1.0]
+    Include "../geometry/suzanne.pbrt"
+  AttributeEnd
+
+  AttributeBegin
+    Translate -1.4 0 1.0
+    #Material "uber" "color Kd" [0.5 0.8 1] "color Ks" [0.4 0.8 0.2]
+    Material "uber" "color Kd" [0.5 0.8 1] "color Ks" [0.0 0.0 0.0]
+    Include "../geometry/suzanne.pbrt"
+  AttributeEnd
+WorldEnd
+
+
